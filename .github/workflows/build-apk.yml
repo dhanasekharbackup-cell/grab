@@ -7,6 +7,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.caching=false"
+
     steps:
       - name: Checkout LibGrabber repository
         uses: actions/checkout@v4
@@ -27,7 +30,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build Release APK
-        run: ./gradlew assembleRelease --no-daemon --stacktrace
+        run: ./gradlew assembleRelease --no-daemon --no-build-cache --stacktrace
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
